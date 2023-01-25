@@ -1,5 +1,5 @@
 # base image
-FROM openjdk:11
+FROM openjdk:8
 
 # define spark and hadoop versions
 ENV SPARK_VERSION=3.2.0
@@ -22,8 +22,8 @@ RUN mkdir -p /opt && \
     echo Spark ${SPARK_VERSION} installed in /opt
 
 # add scripts and update spark default config
-COPY common.sh spark-master spark-worker /
-RUN chmod +x /common.sh /spark-master /spark-worker
+COPY common.sh spark-master spark-worker spark-submit spark-history-server spark_wordcount-0.1.0-SNAPSHOT.jar /
+RUN chmod +x /common.sh /spark-master /spark-worker /spark-submit /spark-history-server /spark_wordcount-0.1.0-SNAPSHOT.jar
 COPY spark-defaults.conf /opt/spark/conf/spark-defaults.conf
 RUN chmod +x /opt/spark/conf/spark-defaults.conf
 ENV PATH $PATH:/opt/spark/bin

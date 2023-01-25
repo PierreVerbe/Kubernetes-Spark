@@ -1,0 +1,11 @@
+#!/bin/bash
+
+. /common.sh
+
+/opt/spark/bin/spark-class org.apache.spark.deploy.SparkSubmit \
+  --deploy-mode client \
+  --master spark://spark-master:7077 \
+  --class ${MAIN_CLASS} \
+  ${SUBMIT_OPTS} \
+  --conf 'spark.driver.host='$(hostname -i) \
+  local://${JAR_PATH}
