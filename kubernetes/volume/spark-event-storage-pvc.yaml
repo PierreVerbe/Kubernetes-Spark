@@ -1,0 +1,11 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: spark-event-storage-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: spark-event-storage
+  resources:
+    requests:
+      storage: 10Gi

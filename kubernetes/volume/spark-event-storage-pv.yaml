@@ -1,0 +1,13 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: spark-event-storage-pv
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: spark-event-storage
+  volumeMode: Filesystem
+  capacity:
+    storage: 10Gi
+  hostPath:
+    path: /data/spark-events/
