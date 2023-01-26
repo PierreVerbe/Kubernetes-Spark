@@ -4,12 +4,12 @@ metadata:
   name: spark-master
 spec:
   ports:
-    - name: webui
-      port: 8080
-      targetPort: 8080
     - name: spark
       port: 7077
       targetPort: 7077
+    - name: spark-master-webui
+      port: 8080
+      targetPort: 8080
   selector:
     component: spark-master
     

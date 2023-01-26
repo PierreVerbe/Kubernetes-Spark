@@ -5,13 +5,23 @@ metadata:
   annotations:
 spec:
   rules:
-  - host: spark-kubernetes
+  - host: spark-master-ui
     http:
       paths:
-        - pathType: Prefix
-          path: /
+        - path: /
+          pathType: Prefix  
           backend:
             service:
               name: spark-master
               port:
                 number: 8080
+  - host: spark-history-ui
+    http:
+      paths: 
+        - path: /
+          pathType: Prefix  
+          backend:
+            service:
+              name: spark-history-server
+              port:
+                number: 18080

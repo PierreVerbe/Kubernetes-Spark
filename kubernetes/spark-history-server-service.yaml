@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: spark-history-server
+spec:
+  ports:
+    - name: spark-history-server-webui
+      port: 18080
+      targetPort: 18080
+  selector:
+    component: spark-history-server
+    

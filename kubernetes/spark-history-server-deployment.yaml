@@ -1,16 +1,16 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: spark-master
+  name: spark-history-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: spark-master
+      component: spark-history-server
   template:
     metadata:
       labels:
-        component: spark-master
+        component: spark-history-server
     spec:
       restartPolicy: Always
       volumes: 
@@ -18,13 +18,12 @@ spec:
           persistentVolumeClaim:
             claimName: spark-event-storage-pvc
       containers:
-        - name: spark-master
+        - name: spark-history-server
           image: spark-hadoop:3.2.0
           imagePullPolicy: Never
-          command: ["/spark-master"]
+          command: ["/spark-history-server"]
           ports:
-            - containerPort: 7077
-            - containerPort: 8080
+            - containerPort: 18080
           volumeMounts:
             - mountPath: "/data/spark-events"
               name: spark-event-storage-volume

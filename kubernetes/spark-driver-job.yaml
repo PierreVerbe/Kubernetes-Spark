@@ -1,0 +1,30 @@
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: spark-driver
+spec:
+  completions: 1
+  template:
+    metadata:
+      labels:
+        component: spark-driver
+    spec:
+      restartPolicy: OnFailure
+      enableServiceLinks: false
+      hostname: spark-driver
+      volumes: 
+        - name: spark-event-storage-volume
+          persistentVolumeClaim:
+            claimName: spark-event-storage-pvc
+      containers:
+        - name: spark-driver
+          image: spark-hadoop:3.2.0
+          command: ["/spark-submit"]
+          volumeMounts:
+            - mountPath: "/data/spark-events"
+              name: spark-event-storage-volume
+          env:
+            - name: MAIN_CLASS
+              value: "com.socgen.dds.Main"
+            - name: JAR_PATH
+              value: "/spark_wordcount-0.1.0-SNAPSHOT.jar"

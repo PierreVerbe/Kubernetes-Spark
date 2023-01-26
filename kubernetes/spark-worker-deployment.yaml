@@ -12,13 +12,19 @@ spec:
       labels:
         component: spark-worker
     spec:
+      volumes: 
+        - name: spark-event-storage-volume
+          persistentVolumeClaim:
+            claimName: spark-event-storage-pvc
       containers:
         - name: spark-worker
           image: spark-hadoop:3.2.0
           command: ["/spark-worker"]
           ports:
             - containerPort: 8081
+          volumeMounts:
+            - mountPath: "/data/spark-events"
+              name: spark-event-storage-volume
           resources:
             requests:
               cpu: 100m
-              
